@@ -4,6 +4,7 @@ class User extends Person {
 
     protected static int $id = 0;
     protected string $email;
+    protected string $password;
     protected int|float $weight;
     protected int|float $waist;
 
@@ -13,12 +14,14 @@ class User extends Person {
         $date_of_birth,
         $gender,
         $email,
+        $password,
         $weight,
         $waist
     ) {
         self::$id++;
         parent::__construct($name, $surname, $date_of_birth, $gender);
         $this->email = $email;
+        $this->password = $password;
         $this->weight = $weight;
         $this->waist = $waist;
     }
@@ -33,6 +36,14 @@ class User extends Person {
 
     public function setEmail($email) {
         $this->email = $email;
+    }
+
+    public function getPassword(): string {
+        return $this->password;
+    }
+
+    public function setPassword(string $password) {
+        $this->password = $password;
     }
 
     public function getWeight(): int|float {
@@ -63,6 +74,7 @@ class User extends Person {
         $data .= "Date of birth: " . $this->date_of_birth . "\n";
         $data .= "Gender: " . $this->gender . "\n";
         $data .= "Email: " . $this->email . "\n";
+        $data .= "Password: " . $this->password . "\n";
         $data .= "Start Weight: " . $this->weight . "\n";
         $data .= "Start waist: " . $this->waist . "\n";
         return $data;
