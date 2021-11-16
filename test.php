@@ -1,4 +1,6 @@
 <?php
+// Require initialize.php and related code
+require_once('./private/initialize.php');
 
 // Includes classes and related code
 include_once('./private/classes/Person.php');
@@ -13,3 +15,6 @@ echo "\n";
 $caterina = new User("Caterina", "Giordo", "01/02/1986", "Female", "caterinagiordo@gmail.com", "Password1234", 50, 60);
 echo $caterina->getUserData();
 echo "\n";
+
+$arr = array("Marco", "Caterina");
+echo count($arr);

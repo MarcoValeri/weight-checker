@@ -21,6 +21,16 @@ define("INCLUDES_PATH", PRIVATE_PATH . '/includes');
  * define('WWW_ROOT', '');
  * Can dynamically find everything in URL up to "/"
  */
-$public_end = strpos($_SERVER['SCRIPT_NAME'], '/') + 1;
+$public_end = strpos($_SERVER['SCRIPT_NAME'], '/') + 14;
 $doc_root = substr($_SERVER['SCRIPT_NAME'], 0, $public_end);
 define("WWW_ROOT", $doc_root);
+
+/**
+ * Require MainFunction and related code
+ */
+require_once('function.php');
+
+/**
+ * Require FormValidation and related code
+ */
+require_once('src/Form/FormValidation.php');
