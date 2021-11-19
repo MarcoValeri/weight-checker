@@ -5,16 +5,10 @@ require_once('./private/initialize.php');
 // Includes classes and related code
 include_once('./private/classes/Person.php');
 include_once('./private/classes/User.php');
+include_once('./private/db/Database.php');
 
 // Create an obj
-$marco = new User("Marco", "Valeri", "23/01/1984", "Male", "info@marcovaleri.net", "Password1234", 104, 115);
-echo $marco->getUserData();
-echo "\n";
-
-// Create an obj
-$caterina = new User("Caterina", "Giordo", "01/02/1986", "Female", "caterinagiordo@gmail.com", "Password1234", 50, 60);
-echo $caterina->getUserData();
-echo "\n";
-
-$arr = array("Marco", "Caterina");
-echo count($arr);
+$db = new Database();
+$connection = $db->dbStartConnection();
+$sql = $db->getSqlUsers();
+$db->createDb($connection, $sql);
