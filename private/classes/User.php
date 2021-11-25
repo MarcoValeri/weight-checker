@@ -5,8 +5,6 @@ class User extends Person {
     protected static int $id = 0;
     protected string $email;
     protected string $password;
-    protected int|float $weight;
-    protected int|float $waist;
 
     public function __construct(
         $name,

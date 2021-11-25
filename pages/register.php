@@ -22,8 +22,6 @@ $gender = "";
 $email = "";
 $password = "";
 $password_confirm = "";
-$weight;
-$waist;
 
 /**
  * Create an array that stores the errors.
@@ -140,30 +138,6 @@ if (isset($_POST['register'])) {
         }
     }
 
-    // Weight validation
-    if (isset($_POST['weight'])) {
-        $check_weight = floatval(clearInput($_POST['weight']));
-        if ($formValidation->formWeight($check_weight) === "Valid") {
-            $weight = $check_weight;
-            $form_valid = true;
-        } else {
-            $error_message['Weight'] = $formValidation->formWeight($check_weight);
-            $form_valid = false;
-        }
-    }
-
-    // Waist validation
-    if (isset($_POST['waist'])) {
-        $check_waist = floatval(clearInput($_POST['waist']));
-        if ($formValidation->formWaist($check_waist) === "Valid") {
-            $waist = $check_waist;
-            $form_valid = true;
-        } else {
-            $error_message['Waist'] = $formValidation->formWaist($check_waist);
-            $form_valid = false;
-        }
-    }
-
     // Check if the form is valid
     if ($form_valid && count($error_message) === 0) {
         $user = new User($name, $surname, $date_of_birthday, $gender, $email, $password);
@@ -229,12 +203,6 @@ if (isset($_POST['register'])) {
             <br>
             <label for="confirm_password">Confirm Password</label>
             <input type="password" id="confirm_password" name="confirm_password" value="">
-            <br>
-            <label for="weight">Weight</label>
-            <input type="number" id="weight" name="weight" value="">
-            <br>
-            <label for="waist">Waist</label>
-            <input type="number" id="waist" name="waist" value="">
             <br>
             <input type="submit" name="register" value="Register">
         </form>
