@@ -99,7 +99,7 @@ class Database {
 
     /**
      * Create a method that creates an entity
-     * is that does not exist.
+     * if that does not exist.
      * @param $connection to the db
      * @param $sql query for the entity
      * If the entity exists, the method
@@ -113,6 +113,46 @@ class Database {
             return $connection->query($sql);
         } else {
             die("Error ". $connection->error);
+        }
+
+    }
+
+    /**
+     * Create a method that saves an user into the db
+     * if the user is not present into the db
+     * 
+     */
+    public function createUser(
+        string $id,
+        string $name,
+        string $surname,
+        string $date_of_birthday,
+        string $gender,
+        string $email,
+        string $password,
+    ) {
+        
+        $get_date = date('d/m/Y');
+
+        $connection = $this->dbStartConnection();
+        $this->dbConnectError($connection);
+
+        $sql = "INSERT INTO users (id, name, surname, date_of_birthday, gender, email, password, date) ";
+        $sql .= "VALUES (
+            '" . intval($id) ."',
+            '$name',
+            '$surname',
+            '$date_of_birthday',
+            '$gender',
+            '$email',
+            '$password',
+            '$get_date'
+        )";
+
+        if ($connection->query($sql) === true) {
+            echo "Create new user";
+        } else {
+            echo "Error: . " . $sql . "<br>" . $connection->error . "<br>";
         }
 
     }

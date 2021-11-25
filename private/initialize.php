@@ -34,3 +34,18 @@ require_once('function.php');
  * Require FormValidation and related code
  */
 require_once('src/Form/FormValidation.php');
+
+/**
+ * Require Database and related code
+ */
+require_once('db/Database.php');
+
+/**
+ * Require Person and related code
+ */
+require_once('classes/Person.php');
+
+/**
+ * Require User and related code
+ */
+require_once('classes/User.php');

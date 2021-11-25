@@ -15,15 +15,11 @@ class User extends Person {
         $gender,
         $email,
         $password,
-        $weight,
-        $waist
     ) {
         self::$id++;
         parent::__construct($name, $surname, $date_of_birth, $gender);
         $this->email = $email;
         $this->password = $password;
-        $this->weight = $weight;
-        $this->waist = $waist;
     }
 
     public function getId(): int {
@@ -46,22 +42,6 @@ class User extends Person {
         $this->password = $password;
     }
 
-    public function getWeight(): int|float {
-        return $this->weight;
-    }
-
-    public function setWeight($weight) {
-        $this->weight = $weight;
-    }
-
-    public function getWaist(): int|float {
-        return $this->waist;
-    }
-
-    public function setWaist($waist) {
-        $this->waist = $waist;
-    }
-
     /**
      * Create a method that output all the data 
      * of the user
@@ -75,8 +55,6 @@ class User extends Person {
         $data .= "Gender: " . $this->gender . "\n";
         $data .= "Email: " . $this->email . "\n";
         $data .= "Password: " . $this->password . "\n";
-        $data .= "Start Weight: " . $this->weight . "\n";
-        $data .= "Start waist: " . $this->waist . "\n";
         return $data;
     }
 
