@@ -66,7 +66,20 @@ if (isset($_POST['register'])) {
     // Date of birthday validation
     if (isset($_POST['date_of_birth'])) {
         if ($formValidation->formDate($_POST['date_of_birth']) === "Valid") {
-            $date_of_birthday = clearInput($_POST['date_of_birth']);
+            $get_date = clearInput($_POST['date_of_birth']);
+            $arr = str_split($get_date);
+            $format_date = "";
+            $format_date .= $arr[8];
+            $format_date .= $arr[9];
+            $format_date .= "/";
+            $format_date .= $arr[5];
+            $format_date .= $arr[6];
+            $format_date .= "/";
+            $format_date .= $arr[0];
+            $format_date .= $arr[1];
+            $format_date .= $arr[2];
+            $format_date .= $arr[3];
+            $date_of_birthday = $format_date;
             $form_valid = true;
         } else {
             $error_message['Date of birthday'] = $formValidation->formDate($_POST['date_of_birth']);

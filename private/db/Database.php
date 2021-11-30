@@ -8,15 +8,21 @@ class Database {
     private const DB_NAME = "weight_checker";
 
     private string $sql_db = "CREATE DATABASE weight_checker";
-    private string $sql_users = "CREATE TABLE Users (
-        id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+
+    private string $sql_users = "CREATE TABLE users (
+        id INT(10) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        email VARCHAR(320) NOT NULL,
+        password VARCHAR(320) NOT NULL,
+        date VARCHAR(10) NOT NULL
+        )";
+
+    private string $sql_user_menu = "CREATE TABLE user_menu (
+        id INT(10) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
         name VARCHAR(20) NOT NULL,
         surname VARCHAR(20) NOT NULL,
         date_of_birthday VARCHAR(10) NOT NULL,
         gender VARCHAR(20) NOT NULL,
-        email VARCHAR(320) NOT NULL,
-        password VARCHAR(320) NOT NULL,
-        date VARCHAR(10) NOT NULL
+        CONSTRAINT user_number FOREIGN KEY (id) REFERENCES users (id)
         )";
 
     // Getter
@@ -28,6 +34,10 @@ class Database {
         return $this->sql_users;
     }
 
+    public function getSqlUserMenu(): string {
+        return $this->sql_user_menu;
+    }
+
     // Setter
     public function setSqlDb($sql) {
         $this->sql_db = $sql;
@@ -35,6 +45,10 @@ class Database {
 
     public function setSqlUsers($sql) {
         $this->sql_users = $sql;
+    }
+
+    public function setSqlUserMenu($sql) {
+        $this->sql_user_menu = $sql;
     }
 
     /**
@@ -120,7 +134,7 @@ class Database {
     /**
      * Create a method that saves an user into the db
      * if the user is not present into the db
-     * 
+     * and then create the user_menu one-to-one relationship
      */
     public function createUser(
         string $id,
@@ -137,22 +151,31 @@ class Database {
         $connection = $this->dbStartConnection();
         $this->dbConnectError($connection);
 
-        $sql = "INSERT INTO users (id, name, surname, date_of_birthday, gender, email, password, date) ";
-        $sql .= "VALUES (
-            '" . intval($id) ."',
-            '$name',
-            '$surname',
-            '$date_of_birthday',
-            '$gender',
+        $sql_user = "INSERT INTO users (email, password, date) ";
+        $sql_user .= "VALUES (
             '$email',
             '$password',
             '$get_date'
         )";
 
-        if ($connection->query($sql) === true) {
+        $sql_user_menu = "INSERT INTO user_menu (name, surname, date_of_birthday, gender) ";
+        $sql_user_menu .= "VALUES (
+            '$name',
+            '$surname',
+            '$date_of_birthday',
+            '$gender'
+            )";
+
+        if ($connection->query($sql_user) === true) {
             echo "Create new user";
         } else {
-            echo "Error: . " . $sql . "<br>" . $connection->error . "<br>";
+            echo "Error: " . $sql_user . "<br>" . $connection->error . "<br>";
+        }
+
+        if ($connection->query($sql_user_menu) === true) {
+            echo "Create new user menu";
+        } else {
+            echo "Error: " . $sql_user_menu . "<br>" . $connection->error . "<br>";
         }
 
     }
