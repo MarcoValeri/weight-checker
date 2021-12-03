@@ -180,4 +180,43 @@ class Database {
 
     }
 
+    /**
+     * Create a method that checks if the user has been already registered.
+     * The method gets a 
+     * @param string $user_email that is the email of the user.
+     * If the user email exists in the db the method 
+     * @return bool false otherwise true
+     */
+    public function checkUserExist(string $user_email): bool {
+
+        $connection = $this->dbStartConnection();
+        $this->dbConnectError($connection);
+
+        $sql = "SELECT email FROM users";
+        $result = $connection->query($sql);
+
+        // Create an empty array where storing all email by the db
+        $arr_email = [];
+
+        if ($result->num_rows > 0) {
+
+            // Check if the user exist
+            while ($row = $result->fetch_assoc()) {
+                array_push($arr_email, $row['email']);
+            }
+
+            foreach ($arr_email as $email) {
+
+                if ($email === $user_email) {
+                    return false;
+                }
+
+            }
+
+        }
+
+        return true;
+
+    }
+
 }

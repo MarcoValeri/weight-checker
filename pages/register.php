@@ -153,18 +153,28 @@ if (isset($_POST['register'])) {
 
     // Check if the form is valid
     if ($form_valid && count($error_message) === 0) {
-        $user = new User($name, $surname, $date_of_birthday, $gender, $email, $password);
+
+        // Create db obj
         $db = new Database;
-        $db->createUser(
-            $user->getId(),
-            $user->getName(),
-            $user->getSurname(),
-            $user->getDateOfBirth(),
-            $user->getGender(),
-            $user->getEmail(),
-            $user->getPassword(),
-        );
-        echo "Form is valid<br>";
+
+        // Check if the user already exists
+        if ($db->checkUserExist($email)) {
+            $user = new User($name, $surname, $date_of_birthday, $gender, $email, $password);
+            $db->createUser(
+                $user->getId(),
+                $user->getName(),
+                $user->getSurname(),
+                $user->getDateOfBirth(),
+                $user->getGender(),
+                $user->getEmail(),
+                $user->getPassword(),
+            );
+            echo "Form is valid<br>";
+        } else {
+            echo "User already exist<br>";
+        }
+
+        
     } else {
         echo "Form is not valid <br>";
     }
